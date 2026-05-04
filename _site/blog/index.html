@@ -11,39 +11,22 @@
   </head>
   <body>
     <header class="site-header">
-      <a href="/" class="site-title">THE RED MONKEY</a>
+      <a href="/" class="site-title" aria-label="The Red Monkey">
+        THE RED MONKEY
+      </a>
     </header>
 
     <main>
-      <div class="inner-layout">
+      
+<div class="inner-layout">
   <aside class="inner-sidebar">
-    <div class="beer-drawing">
-      <svg class="beer-svg" viewBox="0 0 160 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <!-- Pint glass body -->
-  <path d="M 45 60 L 30 240 L 130 240 L 115 60 Z" class="glass-body" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
-  <!-- Glass rim -->
-  <ellipse cx="80" cy="60" rx="35" ry="8" class="glass-rim" fill="none" stroke="currentColor" stroke-width="2.5"/>
-  <!-- Beer fill -->
-  <path d="M 47 90 L 33 240 L 127 240 L 113 90 Z" class="beer-fill"/>
-  <!-- Foam top -->
-  <ellipse cx="80" cy="90" rx="33" ry="10" class="foam-base"/>
-  <!-- Foam bubbles -->
-  <circle cx="65" cy="84" r="9" class="foam-bubble"/>
-  <circle cx="80" cy="80" r="11" class="foam-bubble"/>
-  <circle cx="95" cy="84" r="9" class="foam-bubble"/>
-  <circle cx="73" cy="78" r="7" class="foam-bubble"/>
-  <circle cx="88" cy="77" r="7" class="foam-bubble"/>
-  <!-- Bubble details inside glass -->
-  <circle cx="70" cy="160" r="2" class="bubble" opacity="0.5"/>
-  <circle cx="85" cy="130" r="1.5" class="bubble" opacity="0.4"/>
-  <circle cx="95" cy="180" r="1.5" class="bubble" opacity="0.4"/>
-  <circle cx="75" cy="200" r="2" class="bubble" opacity="0.3"/>
-  <!-- Glass highlight -->
-  <path d="M 50 80 L 38 220" class="glass-highlight" fill="none" stroke="currentColor" stroke-width="1" opacity="0.2"/>
-</svg>
-
-    </div>
-    <p class="beer-caption">A golden ale — crisp, bright, and full of stories.</p>
+    <a href="/beers/golden-pilsner/" class="beer-link">
+      <div class="beer-drawing">
+        <div class="beer-colour-fill" style="background-color: #FFD700; -webkit-mask-image: url('/assets/beer_inside.png'); mask-image: url('/assets/beer_inside.png');"></div>
+        <img src="/assets/beer_outline.png" alt="A pint of Golden Pilsner" class="beer-outline-img">
+      </div>
+      <p class="beer-caption">Golden Pilsner — Crisp and clean pilsner with a delicate hop aroma. Light malt sweetness balanced by noble hop bitterness. Refreshingly dry finish.</p>
+    </a>
   </aside>
 
   <div class="inner-content">
@@ -86,6 +69,72 @@
 
     </main>
 
+    <nav class="taps-stage" aria-label="Site navigation">
+      <a href="/beers/" class="tap-link" aria-label="Beers">
+        <div class="tap">
+          <div class="tap-grip"></div>
+          <div class="tap-stem tap-stem--top"></div>
+          <div class="tap-badge-wrap">
+            <div class="tap-badge">Beers</div>
+          </div>
+          <div class="tap-stem tap-stem--bottom"></div>
+        </div>
+      </a>
+      <a href="/events/" class="tap-link" aria-label="Events">
+        <div class="tap">
+          <div class="tap-grip"></div>
+          <div class="tap-stem tap-stem--top"></div>
+          <div class="tap-badge-wrap">
+            <div class="tap-badge">Events</div>
+          </div>
+          <div class="tap-stem tap-stem--bottom"></div>
+        </div>
+      </a>
+      <a href="/blog/" class="tap-link" aria-label="Blog">
+        <div class="tap">
+          <div class="tap-grip"></div>
+          <div class="tap-stem tap-stem--top"></div>
+          <div class="tap-badge-wrap">
+            <div class="tap-badge">Blog</div>
+          </div>
+          <div class="tap-stem tap-stem--bottom"></div>
+        </div>
+      </a>
+      <a href="/about/" class="tap-link" aria-label="About">
+        <div class="tap">
+          <div class="tap-grip"></div>
+          <div class="tap-stem tap-stem--top"></div>
+          <div class="tap-badge-wrap">
+            <div class="tap-badge">About</div>
+          </div>
+          <div class="tap-stem tap-stem--bottom"></div>
+        </div>
+      </a>
+      <div class="tap-font-bar"></div>
+    </nav>
+
+    <div class="mobile-tap-wrapper">
+      <nav class="mobile-tap-nav" aria-label="Mobile navigation">
+        <button class="mobile-tap-toggle" aria-expanded="false" aria-controls="mobile-menu">
+          <div class="tap">
+            <div class="tap-grip"></div>
+            <div class="tap-stem tap-stem--top"></div>
+            <div class="tap-badge-wrap">
+              <div class="tap-badge">Explore</div>
+            </div>
+            <div class="tap-stem tap-stem--bottom"></div>
+          </div>
+        </button>
+        <div class="tap-font-bar"></div>
+      </nav>
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="/beers/" class="mobile-menu-link">Beers</a>
+        <a href="/events/" class="mobile-menu-link">Events</a>
+        <a href="/blog/" class="mobile-menu-link">Blog</a>
+        <a href="/about/" class="mobile-menu-link">About</a>
+      </div>
+    </div>
+
     <footer class="site-footer">
       <div class="footer-inner">
         <div class="footer-address">
@@ -105,5 +154,20 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      // Mobile tap menu toggle
+      const mobileToggle = document.querySelector('.mobile-tap-toggle');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      
+      if (mobileToggle && mobileMenu) {
+        mobileToggle.addEventListener('click', function() {
+          const isExpanded = this.getAttribute('aria-expanded') === 'true';
+          this.setAttribute('aria-expanded', !isExpanded);
+          mobileMenu.classList.toggle('mobile-menu--open');
+          this.classList.toggle('mobile-tap-toggle--active');
+        });
+      }
+    </script>
   </body>
 </html>

@@ -41,28 +41,69 @@ address {
 :root {
   --tap-tilt: 0deg;
   --tap-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  --header-height: 90px;
 }
 
 // ─── Header ──────────────────────────────────────────────────────────────────
 
 .site-header {
+  background: var(--color-heading);
+  border-bottom: 4px solid rgba(0,0,0,0.35);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+  position: relative;
   text-align: center;
-  padding: 2.5rem 1rem 2rem;
-  border-bottom: var(--header-border);
-  background: var(--color-bg);
+  padding: 1.6rem 1.5rem 1.4rem;
 
-  .site-title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 700;
-    letter-spacing: var(--title-letter-spacing, 0.22em);
-    text-transform: uppercase;
-    color: var(--color-heading);
-    transition: color 0.2s ease;
+  // Subtle texture overlay
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        92deg,
+        transparent,
+        transparent 120px,
+        rgba(0,0,0,0.03) 120px,
+        rgba(0,0,0,0.03) 121px
+      );
+    pointer-events: none;
+  }
+}
 
-    &:hover {
-      color: var(--color-accent);
-    }
+.site-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #F0D060;  // cream-yellow — the top letter colour
+  line-height: 1;
+  white-space: nowrap;
+  position: relative;
+
+  // Red offset layer sits down-left, then a deep shadow beneath that
+  text-shadow:
+    -3px  3px 0 #C8321A,
+    -4px  4px 0 #B02810,
+    -5px  5px 0 rgba(0,0,0,0.4),
+    -6px  6px 8px rgba(0,0,0,0.25);
+
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+
+  &:hover {
+    color: #F8DC70;
+    text-shadow:
+      -3px  3px 0 #D43820,
+      -4px  4px 0 #B02810,
+      -5px  5px 0 rgba(0,0,0,0.4),
+      -6px  6px 10px rgba(0,0,0,0.3);
+  }
+
+  @media (max-width: 480px) {
+    letter-spacing: 0.1em;
+    white-space: normal;
   }
 }
 
@@ -110,30 +151,54 @@ address {
 // ─── Homepage: Beer Taps ─────────────────────────────────────────────────────
 
 .taps-stage {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 3rem;
-  padding: 4rem 2rem 5rem;
-  min-height: calc(100vh - 200px);
+  gap: 5rem;
+  padding: 4rem 2rem 0;
 
   @media (max-width: 600px) {
-    flex-direction: column;
-    align-items: center;
-    gap: 2.5rem;
-    padding: 3rem 2rem 4rem;
-    min-height: auto;
+    gap: 1.5rem;
+    padding: 3rem 1rem 0;
+  }
+}
+
+// Horizontal font bar — the physical bar the taps sit on
+.tap-font-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  background: var(--color-heading);
+  border-radius: 4px 4px 0 0;
+
+  @media (max-width: 600px) {
+    height: 24px;
   }
 }
 
 .tap-link {
   display: block;
   text-decoration: none;
+  position: relative;
+  z-index: 1;
+  // perspective needed on the parent for rotateX to look 3D
+  perspective: 300px;
 
-  &:hover .tap,
-  &:focus .tap {
-    transform: rotate(var(--tap-hover-tilt, -12deg));
-    filter: var(--tap-hover-filter);
+  &:hover .tap-grip,
+  &:focus .tap-grip {
+    transform: rotateX(60deg);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  &:hover .tap-badge,
+  &:focus .tap-badge {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.06), 0 4px 20px rgba(214,123,72,0.2);
   }
 
   &:focus {
@@ -145,66 +210,70 @@ address {
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+}
+
+// Rectangular handle at the top — this is what rotates
+.tap-grip {
+  width: 22px;
+  height: 64px;
+  background: var(--color-heading);
+  border: 2px solid var(--color-heading);
+  border-radius: 3px;
   transform-origin: bottom center;
-  will-change: transform;
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              background 0.2s ease,
+              border-color 0.2s ease;
+
+  @media (max-width: 600px) {
+    width: 14px;
+    height: 40px;
+  }
 }
 
-.tap-handle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 70px;
+// Thin stem connecting grip to badge, and badge to font bar
+.tap-stem {
+  width: 10px;
+  background: var(--color-heading);
+
+  @media (max-width: 600px) {
+    width: 6px;
+  }
 }
 
-.tap-knob {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--tap-knob-bg);
-  border: var(--tap-knob-border);
-  box-shadow: var(--tap-shadow);
-  flex-shrink: 0;
-}
+.tap-stem--top  { height: 16px; }
+.tap-stem--bottom { height: 12px; }
 
-.tap-shaft {
-  width: 14px;
-  height: 120px;
-  background: var(--tap-shaft-bg);
-  border-left: var(--tap-shaft-border);
-  border-right: var(--tap-shaft-border);
+// Oval pump-clip badge
+.tap-badge-wrap {
+  position: relative;
+  z-index: 2;
 }
 
 .tap-badge {
-  width: 70px;
-  padding: 0.5rem 0;
-  text-align: center;
+  width: 130px;
+  height: 82px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  border: 4px solid var(--color-heading);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.07), 0 2px 10px rgba(0,0,0,0.1);
   font-family: var(--font-display);
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--tap-badge-color);
-  background: var(--tap-badge-bg);
-  border: var(--tap-badge-border);
-  border-radius: var(--tap-badge-radius, 4px);
-}
+  color: var(--color-heading);
+  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 
-.tap-base {
-  width: 50px;
-  height: 12px;
-  background: var(--tap-base-bg);
-  border-radius: 3px 3px 0 0;
-  border: var(--tap-base-border);
-}
-
-.tap-spout {
-  width: 30px;
-  height: 18px;
-  background: var(--tap-spout-bg);
-  border-radius: 0 0 8px 8px;
-  border: var(--tap-spout-border);
-  border-top: none;
+  @media (max-width: 600px) {
+    width: 90px;
+    height: 58px;
+    font-size: 0.8rem;
+    border-width: 3px;
+    letter-spacing: 0.04em;
+  }
 }
 
 // ─── Inner Layout (1/3 + 2/3) ────────────────────────────────────────────────
@@ -226,6 +295,7 @@ main {
     grid-template-columns: 1fr;
     gap: 2rem;
     padding: 2rem 1.25rem;
+    min-height: 0;
   }
 }
 
@@ -242,10 +312,18 @@ main {
     flex-direction: row;
     align-items: flex-start;
     gap: 1.5rem;
+    order: 2;
+  }
+}
+
+.inner-content {
+  @media (max-width: 700px) {
+    order: 1;
   }
 }
 
 .beer-drawing {
+  position: relative;
   width: 100%;
   max-width: 160px;
 
@@ -255,30 +333,18 @@ main {
   }
 }
 
-.beer-svg {
+.beer-colour-fill {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.beer-outline-img {
+  position: relative;
   width: 100%;
   height: auto;
-  color: var(--color-beer-drawing);
-
-  .glass-body,
-  .glass-rim {
-    stroke: var(--color-beer-drawing);
-  }
-
-  .beer-fill {
-    fill: var(--color-beer-fill);
-  }
-
-  .foam-base,
-  .foam-bubble {
-    fill: var(--color-foam);
-    stroke: var(--color-beer-drawing);
-    stroke-width: 1.5;
-  }
-
-  .bubble {
-    fill: var(--color-beer-drawing);
-  }
+  display: block;
 }
 
 .beer-caption {
@@ -324,10 +390,11 @@ main {
   }
 
   a {
-    color: var(--color-accent);
+    color: var(--color-heading);
     text-decoration: underline;
+    text-decoration-color: currentColor;
     text-underline-offset: 2px;
-    &:hover { color: var(--color-heading); }
+    &:hover { color: var(--color-accent); }
   }
 
   strong {
@@ -468,4 +535,465 @@ main {
   color: var(--color-muted);
   font-style: italic;
   font-family: var(--font-display);
+}
+
+// ─── Homepage Hero ────────────────────────────────────────────────────────────
+
+.home-hero {
+  width: 100%;
+  height: 100vh;
+  min-height: 320px;
+  background-image: url('/assets/hero.JPG');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+// On the homepage, overlap taps over the hero
+.page-home {
+  main {
+    flex: 0 0 auto;
+    background: transparent;
+  }
+
+  .home-hero {
+    display: block;
+    // Fill viewport minus the header so the taps land at the bottom edge
+    height: calc(100vh - var(--header-height, 90px));
+  }
+
+  .taps-stage {
+    // Pull the taps up over the bottom edge of the hero image.
+    // No padding-top so there's no white gap above the taps.
+    margin-top: -220px;
+    padding-top: 0;
+    position: relative;
+    z-index: 2;
+    background: transparent;
+  }
+
+  .mobile-tap-wrapper {
+    // Pull the mobile tap up over the bottom edge of the hero image
+    margin-top: -220px;
+    position: relative;
+    z-index: 2;
+
+    .mobile-tap-nav {
+      padding-top: 0;
+      background: transparent;
+    }
+  }
+}
+
+
+// ─── Beer Link (clickable beer in sidebar) ───────────────────────────────────
+
+.beer-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  @media (max-width: 700px) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+// ─── Beers Page ──────────────────────────────────────────────────────────────
+
+.beers-chalkboard {
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--color-heading);
+    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+    border-bottom: var(--content-heading-border);
+  }
+}
+
+.beers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.beer-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--color-border);
+  text-decoration: none;
+  transition: background 0.15s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: rgba(214, 123, 72, 0.03);
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    gap: 1rem;
+    padding: 1.25rem 0;
+  }
+}
+
+.beer-item-image {
+  position: relative;
+  width: 60px;
+  flex-shrink: 0;
+
+  @media (max-width: 600px) {
+    width: 50px;
+  }
+}
+
+.beer-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.beer-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.beer-item-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  color: var(--color-heading);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+.beer-item-price {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  color: var(--color-accent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.beer-item-details {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  font-family: var(--font-body);
+}
+
+.beer-item-style,
+.beer-item-abv,
+.beer-item-brewery {
+  font-size: 0.875rem;
+}
+
+.beer-item-separator {
+  color: var(--color-border);
+  font-size: 0.6rem;
+}
+
+.beer-item-description {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+.beers-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+
+  @media (max-width: 700px) {
+    padding: 2rem 1.25rem;
+  }
+}
+
+.beers-header {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--color-heading);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: var(--color-muted);
+  }
+}
+
+.beers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.beer-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  padding: 2rem 1.5rem;
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    border-color: var(--color-accent);
+  }
+}
+
+.beer-card-image {
+  position: relative;
+  width: 100%;
+  max-width: 120px;
+  margin-bottom: 1.5rem;
+}
+
+.beer-card-info {
+  text-align: center;
+  width: 100%;
+}
+
+.beer-card-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 0.5rem;
+}
+
+.beer-card-style {
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  margin-bottom: 0.25rem;
+}
+
+.beer-card-abv {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+// ─── Beer Detail Page ────────────────────────────────────────────────────────
+
+.beer-detail {
+  .beer-header {
+    margin-bottom: 2rem;
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--color-heading);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .beer-style {
+    font-size: 1.1rem;
+    color: var(--color-muted);
+    font-weight: 600;
+  }
+}
+
+.beer-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: rgba(26, 55, 56, 0.03);
+  border-radius: 6px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.beer-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.beer-stat-label {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-weight: 600;
+}
+
+.beer-stat-value {
+  font-size: 1.05rem;
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+.beer-ingredients {
+  margin-top: 2.5rem;
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-bottom: 1rem;
+  }
+}
+
+.ingredients-list {
+  display: grid;
+  gap: 1rem;
+
+  dt {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  dd {
+    font-size: 1rem;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+    padding-left: 0;
+  }
+}
+
+// ─── Mobile Tap Navigation ───────────────────────────────────────────────────
+
+.mobile-tap-wrapper {
+  display: none;
+
+  @media (max-width: 600px) {
+    display: block;
+  }
+}
+
+.mobile-tap-nav {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem 0;
+}
+
+.mobile-tap-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  perspective: 300px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.mobile-tap-toggle--active .tap-grip {
+    transform: rotateX(60deg);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  &.mobile-tap-toggle--active .tap-badge {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.06), 0 4px 20px rgba(214,123,72,0.2);
+  }
+}
+
+.mobile-menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--color-heading);
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.mobile-menu--open {
+    max-height: 400px;
+  }
+}
+
+.mobile-menu-link {
+  padding: 1.5rem 2rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgba(253, 251, 247, 0.85);
+  text-decoration: none;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover, &:active {
+    background: rgba(124, 181, 167, 0.2);
+    color: var(--color-mint);
+  }
+}
+
+// Hide desktop taps on mobile
+@media (max-width: 600px) {
+  .taps-stage {
+    display: none;
+  }
 }

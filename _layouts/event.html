@@ -1,12 +1,16 @@
 ---
 layout: default
 ---
+{% assign random_beer = site.beers | sample %}
 <div class="inner-layout">
   <aside class="inner-sidebar">
-    <div class="beer-drawing">
-      {% include beer-drawing.svg %}
-    </div>
-    <p class="beer-caption">{{ page.beer_caption | default: "A fine pint, pulled with care." }}</p>
+    <a href="{{ random_beer.url | relative_url }}" class="beer-link">
+      <div class="beer-drawing">
+        <div class="beer-colour-fill" style="background-color: {{ random_beer.color_hex | default: '#D67B48' }}; -webkit-mask-image: url('{{ "/assets/beer_inside.png" | relative_url }}'); mask-image: url('{{ "/assets/beer_inside.png" | relative_url }}');"></div>
+        <img src="{{ "/assets/beer_outline.png" | relative_url }}" alt="A pint of {{ random_beer.name }}" class="beer-outline-img">
+      </div>
+      <p class="beer-caption">{{ random_beer.name }} — {{ random_beer.description }}</p>
+    </a>
   </aside>
 
   <div class="inner-content">

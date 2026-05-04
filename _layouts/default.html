@@ -9,14 +9,82 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Open+Sans:wght@400;600&family=Permanent+Marker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
   </head>
-  <body>
+  <body{% if page.body_class %} class="{{ page.body_class }}"{% elsif layout.body_class %} class="{{ layout.body_class }}"{% endif %}>
     <header class="site-header">
-      <a href="{{ "/" | relative_url }}" class="site-title">THE RED MONKEY</a>
+      <a href="{{ "/" | relative_url }}" class="site-title" aria-label="{{ site.title }}">
+        THE RED MONKEY
+      </a>
     </header>
 
     <main>
       {{ content }}
     </main>
+
+    <nav class="taps-stage" aria-label="Site navigation">
+      <a href="{{ "/beers/" | relative_url }}" class="tap-link" aria-label="Beers">
+        <div class="tap">
+          <div class="tap-grip"></div>
+          <div class="tap-stem tap-stem--top"></div>
+          <div class="tap-badge-wrap">
+            <div class="tap-badge">Beers</div>
+          </div>
+          <div class="tap-stem tap-stem--bottom"></div>
+        </div>
+      </a>
+      <a href="{{ "/events/" | relative_url }}" class="tap-link" aria-label="Events">
+        <div class="tap">
+          <div class="tap-grip"></div>
+          <div class="tap-stem tap-stem--top"></div>
+          <div class="tap-badge-wrap">
+            <div class="tap-badge">Events</div>
+          </div>
+          <div class="tap-stem tap-stem--bottom"></div>
+        </div>
+      </a>
+      <a href="{{ "/blog/" | relative_url }}" class="tap-link" aria-label="Blog">
+        <div class="tap">
+          <div class="tap-grip"></div>
+          <div class="tap-stem tap-stem--top"></div>
+          <div class="tap-badge-wrap">
+            <div class="tap-badge">Blog</div>
+          </div>
+          <div class="tap-stem tap-stem--bottom"></div>
+        </div>
+      </a>
+      <a href="{{ "/about/" | relative_url }}" class="tap-link" aria-label="About">
+        <div class="tap">
+          <div class="tap-grip"></div>
+          <div class="tap-stem tap-stem--top"></div>
+          <div class="tap-badge-wrap">
+            <div class="tap-badge">About</div>
+          </div>
+          <div class="tap-stem tap-stem--bottom"></div>
+        </div>
+      </a>
+      <div class="tap-font-bar"></div>
+    </nav>
+
+    <div class="mobile-tap-wrapper">
+      <nav class="mobile-tap-nav" aria-label="Mobile navigation">
+        <button class="mobile-tap-toggle" aria-expanded="false" aria-controls="mobile-menu">
+          <div class="tap">
+            <div class="tap-grip"></div>
+            <div class="tap-stem tap-stem--top"></div>
+            <div class="tap-badge-wrap">
+              <div class="tap-badge">Explore</div>
+            </div>
+            <div class="tap-stem tap-stem--bottom"></div>
+          </div>
+        </button>
+        <div class="tap-font-bar"></div>
+      </nav>
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="{{ "/beers/" | relative_url }}" class="mobile-menu-link">Beers</a>
+        <a href="{{ "/events/" | relative_url }}" class="mobile-menu-link">Events</a>
+        <a href="{{ "/blog/" | relative_url }}" class="mobile-menu-link">Blog</a>
+        <a href="{{ "/about/" | relative_url }}" class="mobile-menu-link">About</a>
+      </div>
+    </div>
 
     <footer class="site-footer">
       <div class="footer-inner">
@@ -37,5 +105,20 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      // Mobile tap menu toggle
+      const mobileToggle = document.querySelector('.mobile-tap-toggle');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      
+      if (mobileToggle && mobileMenu) {
+        mobileToggle.addEventListener('click', function() {
+          const isExpanded = this.getAttribute('aria-expanded') === 'true';
+          this.setAttribute('aria-expanded', !isExpanded);
+          mobileMenu.classList.toggle('mobile-menu--open');
+          this.classList.toggle('mobile-tap-toggle--active');
+        });
+      }
+    </script>
   </body>
 </html>

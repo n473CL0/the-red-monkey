@@ -1,6 +1,8 @@
 ---
 ---
 
+@import "base";
+
 // ─── Theme Variables ──────────────────────────────────────────────────────────
 
 :root {
@@ -19,35 +21,13 @@
   --color-border: rgba(26, 55, 56, 0.15);
 
   // Header / footer
-  --header-border: 2px solid #1A3738;
   --footer-border: 1px solid rgba(26, 55, 56, 0.2);
   --content-heading-border: 1px solid rgba(26, 55, 56, 0.15);
-
-  // Title spacing
-  --title-letter-spacing: 0.22em;
 
   // Beer drawing
   --color-beer-drawing: #1A3738;
   --color-beer-fill: rgba(214, 123, 72, 0.25);
   --color-foam: rgba(253, 251, 247, 0.95);
 
-  // Tap colours — copper/teal palette
-  --tap-knob-bg: #D67B48;
-  --tap-knob-border: 2px solid #1A3738;
-  --tap-shaft-bg: #7CB5A7;
-  --tap-shaft-border: 1px solid #1A3738;
-  --tap-badge-color: #FDFBF7;
-  --tap-badge-bg: #1A3738;
-  --tap-badge-border: 1px solid #1A3738;
-  --tap-badge-radius: 2px;
-  --tap-base-bg: #1A3738;
-  --tap-base-border: 1px solid #1A3738;
-  --tap-spout-bg: #7CB5A7;
-  --tap-spout-border: 1px solid #1A3738;
-
-  // Tap interaction — gentle tilt, no flashiness
-  --tap-hover-tilt: -10deg;
-  --tap-hover-filter: brightness(1.08);
+  // (tap styles handled directly in base.scss)
 }
-
-@import "base";
