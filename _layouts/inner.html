@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<div class="inner-layout">
+  <aside class="inner-sidebar">
+    <div class="beer-drawing">
+      {% include beer-drawing.svg %}
+    </div>
+    <p class="beer-caption">{{ page.beer_caption | default: "A fine pint, pulled with care." }}</p>
+  </aside>
+
+  <div class="inner-content">
+    {{ content }}
+  </div>
+</div>

@@ -1,0 +1,27 @@
+---
+layout: inner
+title: "Events"
+beer_caption: "A dark stout — rich, full-bodied, and worth the occasion."
+---
+
+<h2>Events</h2>
+
+<ul class="post-list events-list">
+  {% for event in site.events %}
+  <li class="post-list-item event-list-item">
+    <a href="{{ event.url | relative_url }}" class="post-list-link">
+      <span class="post-list-title">{{ event.title }}</span>
+      {% if event.event_date %}
+      <time class="post-list-date">{{ event.event_date }}</time>
+      {% endif %}
+    </a>
+    {% if event.excerpt %}
+    <p class="post-list-excerpt">{{ event.excerpt | strip_html | truncatewords: 30 }}</p>
+    {% endif %}
+  </li>
+  {% endfor %}
+
+  {% if site.events.size == 0 %}
+  <li class="post-list-empty">No upcoming events. Check back soon.</li>
+  {% endif %}
+</ul>

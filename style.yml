@@ -1,0 +1,34 @@
+# Style Guide: The Red Monkey Pub
+# Target: Jekyll Template AI Agent
+
+brand:
+  name: "The Red Monkey"
+  concept: "Quiet, traditional, conversation-focused free house."
+  keywords: ["cozy", "warm", "classic", "local", "unplugged"]
+
+colors:
+  # Extracted from storefront (BOBC0396.webp) and interior (BOBC0397.webp)
+  primary_background: "#FDFBF7" # Warm off-white for main content areas
+  primary_dark: "#1A3738"       # Deep teal from exterior walls (use for header/footer)
+  accent_copper: "#D67B48"      # Warm orange from sign lettering (use for buttons/links)
+  accent_mint: "#7CB5A7"        # Pale green from owl logo (use for subtle borders/hover states)
+  text_dark: "#222222"          # Dark charcoal from interior chalkboards (use for body text)
+
+typography:
+  headings:
+    family: "'Crimson Text', serif"
+    weight: 700
+    usage: "Site title, section headers. Reflects the classic exterior sign."
+  body:
+    family: "'Open Sans', sans-serif"
+    weight: 400
+    usage: "Paragraphs, lists, standard UI elements. Ensures clean readability."
+  accent:
+    family: "'Permanent Marker', cursive"
+    usage: "Sparse use for specials or prices to mimic the interior chalkboard signs."
+
+layout_rules:
+  - "Keep it simple. Center the main content."
+  - "Use generous white space to reflect the quiet atmosphere."
+  - "Avoid flashy animations or complex grids."
+  - "Ensure high contrast between text and backgrounds."
