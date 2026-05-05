@@ -1,6 +1,7 @@
 ---
 layout: inner
 title: "About"
+permalink: /about/
 beer_caption: "Our house bitter — malty, smooth, and always on tap."
 ---
 
