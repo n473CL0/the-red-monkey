@@ -41,14 +41,18 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.1'
-          bundler-cache: true
+
+      # We install Jekyll and the plugin directly instead of using a Gemfile
+      - name: Install Jekyll and Plugins
+        run: gem install jekyll jekyll-datapage-generator
 
       - name: Set up GitHub Pages
         id: pages
         uses: actions/configure-pages@v4
 
+      # We run standard jekyll build instead of bundle exec
       - name: Build the site
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
 
