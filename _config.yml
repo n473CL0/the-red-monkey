@@ -7,9 +7,6 @@ collections:
   events:
     output: true
     permalink: /events/:slug/
-  beers:
-    output: true
-    permalink: /beers/:slug/
 
 defaults:
   - scope:
@@ -22,8 +19,3 @@ defaults:
       type: "events"
     values:
       layout: "event"
-  - scope:
-      path: ""
-      type: "beers"
-    values:
-      layout: "beer"

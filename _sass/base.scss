@@ -347,6 +347,21 @@ main {
   display: block;
 }
 
+.beer-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.beer-photo-thumb {
+  width: 100%;
+  height: 60px;
+  display: block;
+  object-fit: contain;
+}
+
 .beer-caption {
   font-family: var(--font-accent);
   font-size: 0.95rem;

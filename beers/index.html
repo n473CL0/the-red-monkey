@@ -5,27 +5,29 @@ title: "Beers"
 
 <div class="beers-chalkboard">
   <h2>On Tap</h2>
-  
+
   <div class="beers-list">
-    {% for beer in site.beers %}
-    <a href="{{ beer.url | relative_url }}" class="beer-item">
+    {% for beer in site.data.beers %}
+      {% assign slug = beer.beer_name | downcase | replace: ' ', '-' | replace: "'", '' | replace: '(', '' | replace: ')', '' | replace: '/', '' | replace: '#', '' %}
+    <a href="{{ "/beers/" | relative_url }}{{ slug }}/" class="beer-item">
       <div class="beer-item-image">
-        <div class="beer-colour-fill" style="background-color: {{ beer.color_hex }}; -webkit-mask-image: url('{{ "/assets/beer_inside.png" | relative_url }}'); mask-image: url('{{ "/assets/beer_inside.png" | relative_url }}');"></div>
-        <img src="{{ "/assets/beer_outline.png" | relative_url }}" alt="A pint of {{ beer.name }}" class="beer-outline-img">
+        {% if beer.image %}
+          <img src="{{ beer.image }}" alt="{{ beer.beer_name }}" class="beer-photo-thumb">
+        {% else %}
+          <div class="beer-colour-fill" style="background-color: {{ beer.color }}; -webkit-mask-image: url('{{ "/assets/beer_inside.png" | relative_url }}'); mask-image: url('{{ "/assets/beer_inside.png" | relative_url }}');"></div>
+          <img src="{{ "/assets/beer_outline.png" | relative_url }}" alt="A pint of {{ beer.beer_name }}" class="beer-outline-img">
+        {% endif %}
       </div>
       <div class="beer-item-content">
         <div class="beer-item-header">
-          <h3 class="beer-item-name">{{ beer.name }}</h3>
-          <span class="beer-item-price">{{ beer.price }}</span>
+          <h3 class="beer-item-name">{{ beer.beer_name }}</h3>
         </div>
         <div class="beer-item-details">
-          <span class="beer-item-style">{{ beer.style }}</span>
-          <span class="beer-item-separator">•</span>
-          <span class="beer-item-abv">{{ beer.abv }}% ABV</span>
+          <span class="beer-item-style">{{ beer.details }}</span>
           <span class="beer-item-separator">•</span>
           <span class="beer-item-brewery">{{ beer.brewery }}</span>
         </div>
-        <p class="beer-item-description">{{ beer.description }}</p>
+        <p class="beer-item-description">{{ beer.notes }}</p>
       </div>
     </a>
     {% endfor %}

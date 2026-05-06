@@ -4,59 +4,40 @@ layout: default
 <div class="inner-layout">
   <aside class="inner-sidebar">
     <div class="beer-drawing">
-      <div class="beer-colour-fill" style="background-color: {{ page.color_hex }}; -webkit-mask-image: url('{{ "/assets/beer_inside.png" | relative_url }}'); mask-image: url('{{ "/assets/beer_inside.png" | relative_url }}');"></div>
-      <img src="{{ "/assets/beer_outline.png" | relative_url }}" alt="A pint of {{ page.name }}" class="beer-outline-img">
+      {% if page.image %}
+        <img src="{{ page.image }}" alt="A pint of {{ page.name }}" class="beer-photo">
+      {% else %}
+        <div class="beer-colour-fill" style="background-color: {{ page.color }}; -webkit-mask-image: url('{{ "/assets/beer_inside.png" | relative_url }}'); mask-image: url('{{ "/assets/beer_inside.png" | relative_url }}');"></div>
+        <img src="{{ "/assets/beer_outline.png" | relative_url }}" alt="A pint of {{ page.name }}" class="beer-outline-img">
+      {% endif %}
     </div>
-    <p class="beer-caption">{{ page.description }}</p>
+    <p class="beer-caption">{{ page.notes }}</p>
   </aside>
 
   <div class="inner-content">
     <article class="beer-detail">
       <header class="beer-header">
-        <h1>{{ page.name }}</h1>
-        <p class="beer-style">{{ page.style }} • {{ page.abv }}% ABV</p>
+        <h1>{{ page.beer_name }}</h1>
+        <p class="beer-style">{{ page.details }}</p>
       </header>
-      
+
       <div class="beer-stats">
         <div class="beer-stat">
           <span class="beer-stat-label">Brewery</span>
           <span class="beer-stat-value">{{ page.brewery }}</span>
         </div>
         <div class="beer-stat">
-          <span class="beer-stat-label">Style</span>
-          <span class="beer-stat-value">{{ page.style }}</span>
-        </div>
-        <div class="beer-stat">
-          <span class="beer-stat-label">ABV</span>
-          <span class="beer-stat-value">{{ page.abv }}%</span>
-        </div>
-        <div class="beer-stat">
-          <span class="beer-stat-label">IBU</span>
-          <span class="beer-stat-value">{{ page.ibu }}</span>
-        </div>
-        <div class="beer-stat">
-          <span class="beer-stat-label">Color</span>
-          <span class="beer-stat-value">{{ page.color }}</span>
-        </div>
-        <div class="beer-stat">
-          <span class="beer-stat-label">Price</span>
-          <span class="beer-stat-value">{{ page.price }}</span>
+          <span class="beer-stat-label">Style &amp; ABV</span>
+          <span class="beer-stat-value">{{ page.details }}</span>
         </div>
       </div>
 
-      <div class="beer-ingredients">
-        <h3>Ingredients</h3>
-        <dl class="ingredients-list">
-          <dt>Malts</dt>
-          <dd>{{ page.ingredients.malts }}</dd>
-          <dt>Hops</dt>
-          <dd>{{ page.ingredients.hops }}</dd>
-          <dt>Yeast</dt>
-          <dd>{{ page.ingredients.yeast }}</dd>
-        </dl>
+      {% if page.notes %}
+      <div class="beer-tasting-notes">
+        <h3>Tasting Notes</h3>
+        <p>{{ page.notes }}</p>
       </div>
-
-      {{ content }}
+      {% endif %}
     </article>
   </div>
 </div>
