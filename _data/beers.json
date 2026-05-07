@@ -1,21 +1,5 @@
 [
   {
-    "beer_name": "Neap Tide",
-    "brewery": "Teignworthy",
-    "details": "3.8% Brown",
-    "notes": "A good, tasty, fruity bitter. Tastes more than percentage depicts.",
-    "color": "#5C4033",
-    "image": "https://beerclips.b-cdn.net/Teighnworthy-NeapTide.jpg"
-  },
-  {
-    "beer_name": "Red Kite",
-    "brewery": "Vale",
-    "details": "4.3% Brown",
-    "notes": "Warm toasted malt flavours create a rich bitter with a satisfying blend of chestnut and autumn spice.",
-    "color": "#5C4033",
-    "image": "https://beerclips.b-cdn.net/Vale-RedKite2024.jpg"
-  },
-  {
     "beer_name": "Black As Yer 'At",
     "brewery": "Glastonbury",
     "details": "4.3% Stout",
