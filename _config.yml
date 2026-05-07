@@ -2,3 +2,15 @@ url: "https://theredmonkey.co.uk"
 baseurl: ""
 title: "The Red Monkey"
 description: "Your local pub in Redland, Bristol"
+
+contact:
+  phone: "+44 117 973 1498"
+  address_line1: "22 Chandos Rd"
+  address_line2: "Redland, Bristol"
+  postcode: "BS6 6PF"
+  maps_url: "https://maps.app.goo.gl/kqHWdVXzagDzGk1q9"
+
+links:
+  beers: "https://www.realalefinder.com/beerboard/?the-red-monkey-bristol"
+  facebook: "https://www.facebook.com/share/18UhUpR4YH/?mibextid=wwXIfr"
+  instagram: "https://www.instagram.com/theredmonkeybs6/"

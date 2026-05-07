@@ -21,7 +21,7 @@
     </main>
 
     <nav class="taps-stage" aria-label="Site navigation">
-      <a href="https://www.realalefinder.com/beerboard/?the-red-monkey-bristol" class="tap-link" aria-label="Beers" target="_blank" rel="noopener noreferrer">
+      <a href="{{ site.links.beers }}" class="tap-link" aria-label="Beers" target="_blank" rel="noopener noreferrer">
         <div class="tap">
           <div class="tap-grip"></div>
           <div class="tap-stem tap-stem--top"></div>
@@ -31,7 +31,7 @@
           <div class="tap-stem tap-stem--bottom"></div>
         </div>
       </a>
-      <a href="https://www.facebook.com/share/18UhUpR4YH/?mibextid=wwXIfr" class="tap-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+      <a href="{{ site.links.facebook }}" class="tap-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
         <div class="tap">
           <div class="tap-grip"></div>
           <div class="tap-stem tap-stem--top"></div>
@@ -41,7 +41,7 @@
           <div class="tap-stem tap-stem--bottom"></div>
         </div>
       </a>
-      <a href="https://www.instagram.com/theredmonkeybs6/" class="tap-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+      <a href="{{ site.links.instagram }}" class="tap-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
         <div class="tap">
           <div class="tap-grip"></div>
           <div class="tap-stem tap-stem--top"></div>
@@ -79,9 +79,9 @@
         <div class="tap-font-bar"></div>
       </nav>
       <div class="mobile-menu" id="mobile-menu">
-        <a href="https://www.realalefinder.com/beerboard/?the-red-monkey-bristol" class="mobile-menu-link" target="_blank" rel="noopener noreferrer">Beers</a>
-        <a href="https://www.facebook.com/share/18UhUpR4YH/?mibextid=wwXIfr" class="mobile-menu-link" target="_blank" rel="noopener noreferrer">Facebook</a>
-        <a href="https://www.instagram.com/theredmonkeybs6/" class="mobile-menu-link" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="{{ site.links.beers }}" class="mobile-menu-link" target="_blank" rel="noopener noreferrer">Beers</a>
+        <a href="{{ site.links.facebook }}" class="mobile-menu-link" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="{{ site.links.instagram }}" class="mobile-menu-link" target="_blank" rel="noopener noreferrer">Instagram</a>
         <a href="{{ "/about/" | relative_url }}" class="mobile-menu-link">About</a>
       </div>
     </div>
@@ -91,15 +91,17 @@
         <div class="footer-address">
           <strong>Address</strong>
           <address>
-            22 Chandos Rd<br>
-            Redland, Bristol<br>
-            BS6 6PF
+            <a href="{{ site.contact.maps_url }}" target="_blank" rel="noopener noreferrer">
+              {{ site.contact.address_line1 }}<br>
+              {{ site.contact.address_line2 }}<br>
+              {{ site.contact.postcode }}
+            </a>
           </address>
         </div>
         <div class="footer-contact">
           <strong>Contact</strong>
           <p>
-            Tel: <a href="tel:+441179731498">+44 117 973 1498</a>
+            Tel: <a href="tel:{{ site.contact.phone | remove: ' ' }}">{{ site.contact.phone }}</a>
           </p>
         </div>
       </div>

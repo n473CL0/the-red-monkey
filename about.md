@@ -8,12 +8,6 @@ permalink: /about/
 
 The Red Monkey is a community pub in Redland, Bristol. We serve a rotating selection of real ales, craft lagers, and ciders in a welcoming, no-fuss atmosphere.
 
-### Find Us
-
-22 Chandos Rd, Redland, Bristol BS6 6PF
-
-Tel: [+44 117 973 1498](tel:+441179731498)
-
 ### Opening Hours
 
 | Day | Hours |
