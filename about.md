@@ -23,6 +23,6 @@ The pub is run by the Hartley family, who took over from the original owners in 
 
 | Day | Hours |
 |-----|-------|
-| Monday – Thursday | 12:00 – 23:00 |
-| Friday – Saturday | 12:00 – 00:00 |
-| Sunday | 12:00 – 22:30 |
+| Monday – Friday | 16:00 – 23:00 |
+| Saturday | 12:00 – 23:00 |
+| Sunday | 12:00 – 22:00 |
