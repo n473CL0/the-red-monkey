@@ -1,23 +1,7 @@
 ---
 layout: default
 ---
-{% assign random_beer = site.data.beers | sample %}
-{% assign beer_slug = random_beer.beer_name | downcase | replace: ' ', '-' | replace: "'", '' | replace: '(', '' | replace: ')', '' | replace: '/', '' | replace: '#', '' %}
 <div class="inner-layout">
-  <aside class="inner-sidebar">
-    <a href="{{ "/beers/" | relative_url }}{{ beer_slug }}/" class="beer-link">
-      <div class="beer-drawing">
-        {% if random_beer.image %}
-          <img src="{{ random_beer.image }}" alt="{{ random_beer.beer_name }}" class="beer-photo">
-        {% else %}
-          <div class="beer-colour-fill" style="background-color: {{ random_beer.color | default: '#D67B48' }}; -webkit-mask-image: url('{{ "/assets/beer_inside.png" | relative_url }}'); mask-image: url('{{ "/assets/beer_inside.png" | relative_url }}');"></div>
-          <img src="{{ "/assets/beer_outline.png" | relative_url }}" alt="A pint of {{ random_beer.beer_name }}" class="beer-outline-img">
-        {% endif %}
-      </div>
-      <p class="beer-caption">{{ random_beer.beer_name }} — {{ random_beer.notes }}</p>
-    </a>
-  </aside>
-
   <div class="inner-content">
     {{ content }}
   </div>

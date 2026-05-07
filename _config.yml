@@ -1,21 +1,4 @@
 url: "https://n473cl0.github.io"
 baseurl: "/trm"
 title: "The Red Monkey"
-description: "Your local pub"
-
-collections:
-  events:
-    output: true
-    permalink: /events/:slug/
-
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-  - scope:
-      path: ""
-      type: "events"
-    values:
-      layout: "event"
+description: "Your local pub in Redland, Bristol"
