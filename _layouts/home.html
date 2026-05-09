@@ -2,5 +2,8 @@
 layout: default
 body_class: page-home
 ---
-<div class="home-hero" role="img" aria-label="The Red Monkey pub interior"></div>
+<picture>
+  <source srcset="{{ "/assets/hero.avif" | relative_url }}" type="image/avif">
+  <img src="{{ "/assets/hero.JPG" | relative_url }}" alt="The Red Monkey pub interior" class="home-hero">
+</picture>
 {{ content }}
